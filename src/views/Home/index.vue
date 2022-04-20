@@ -46,7 +46,9 @@
 					</div>
 				</el-card>
 			</div>
-			<el-card style="height: 280px"></el-card>
+			<el-card style="height: 280px">
+				<div ref="echarts" style="height: 280px"></div>
+			</el-card>
 			<div class="graph">
 				<el-card style="height: 260px"></el-card>
 				<el-card style="height: 260px"></el-card>
@@ -56,49 +58,14 @@
 </template>
 
 <script>
+	import { getData } from '../../api/data'
+	import * as echarts from 'echarts'
 	export default {
 		name: 'My-Home',
 		data() {
 			return {
 				userImg: require('../../assets/images/user.png'),
-				tableData: [
-					{
-						name: 'oppo',
-						todayBuy: 100,
-						monthBuy: 300,
-						totalBuy: 800,
-					},
-					{
-						name: 'vivo',
-						todayBuy: 100,
-						monthBuy: 300,
-						totalBuy: 800,
-					},
-					{
-						name: '苹果',
-						todayBuy: 100,
-						monthBuy: 300,
-						totalBuy: 800,
-					},
-					{
-						name: '小米',
-						todayBuy: 100,
-						monthBuy: 300,
-						totalBuy: 800,
-					},
-					{
-						name: '三星',
-						todayBuy: 100,
-						monthBuy: 300,
-						totalBuy: 800,
-					},
-					{
-						name: '魅族',
-						todayBuy: 100,
-						monthBuy: 300,
-						totalBuy: 800,
-					},
-				],
+				tableData: [],
 				tablelable: {
 					name: '课程',
 					todayBuy: '今日购买',
@@ -146,14 +113,41 @@
 			}
 		},
 		mounted() {
-			this.$http
-				.get('/user')
-				.then(function (response) {
-					console.log(response)
-				})
-				.catch(function (error) {
-					console.log(error)
-				})
+			getData().then((res) => {
+				const { code, data } = res.data
+				if (code === 20000) {
+					this.tableData = data.tableData
+					const order = data.orderData
+					const xData = order.date
+
+					const keyArray = Object.keys(order.data[0])
+					const series = []
+					keyArray.forEach((key) =>
+						series.push({
+							name: key,
+							data: order.data.map((item) => item[key]),
+							type: 'line',
+						})
+					)
+					const option = {
+						xAxis: {
+							data: xData,
+						},
+						yAxis: {},
+						legend: {
+							data: keyArray,
+						},
+						tooltip: {},
+						series,
+						title: {
+							text: 'ECharts 入门示例',
+						},
+					}
+					const E = echarts.init(this.$refs.echarts)
+					E.setOption(option)
+				}
+				console.log(res)
+			})
 		},
 	}
 </script>
