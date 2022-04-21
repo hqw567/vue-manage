@@ -7,7 +7,14 @@
 				plain
 				size="mini"
 			></el-button>
-			<span>首页</span>
+			<el-breadcrumb separator-class="el-icon-arrow-right">
+				<el-breadcrumb-item
+					v-for="item in tabs"
+					:key="item.path"
+					:to="{ path: item.path }"
+					>{{ item.label }}</el-breadcrumb-item
+				>
+			</el-breadcrumb>
 		</div>
 		<div class="r-content">
 			<el-dropdown trigger="click" size="mini">
@@ -22,6 +29,7 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
 	export default {
 		name: 'My-Header',
 		data() {
@@ -38,6 +46,9 @@
 			isPud() {
 				return this.$store.state.tab.isCollapse ? '-s-unfold' : '-s-fold'
 			},
+			...mapState({
+				tabs: (state) => state.tab.tabsList,
+			}),
 		},
 	}
 </script>
@@ -53,7 +64,6 @@
 	.l-content {
 		display: flex;
 		align-items: center;
-		color: #fff;
 		span {
 			margin-left: 20px;
 		}

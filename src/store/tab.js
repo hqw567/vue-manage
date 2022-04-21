@@ -4,7 +4,8 @@ export default {
 		tabsList: [
 			{
 				path: '/',
-				name: '首页',
+				name: 'home',
+				label: '首页',
 				icon: 'home',
 			},
 		],
@@ -20,11 +21,17 @@ export default {
 				const result = state.tabsList.findIndex(
 					(item) => item.name === val.name
 				)
-				if (result !== -1) {
+				if (result === -1) {
 					state.tabsList.push(val)
 				} else {
 					state.currentMenu = null
 				}
+			}
+		},
+		closeTag(state, val) {
+			const result = state.tabsList.findIndex((item) => item.name === val.name)
+			if (result !== -1) {
+				state.tabsList.splice(result, 1)
 			}
 		},
 	},

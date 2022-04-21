@@ -18,6 +18,9 @@ import {
 	Card,
 	Table,
 	TableColumn,
+	Breadcrumb,
+	BreadcrumbItem,
+	Tag,
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
@@ -42,6 +45,9 @@ Vue.use(Col)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Tag)
 
 Vue.prototype.$http = http
 Vue.config.productionTip = false

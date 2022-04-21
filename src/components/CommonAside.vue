@@ -4,7 +4,6 @@
 		class="el-menu-vertical-demo"
 		background-color="#545c65"
 		text-color="#fff"
-		active-text-color="#ffd04b"
 		@open="handleOpen"
 		@close="handleClose"
 		:collapse="isCollapse"
@@ -47,19 +46,13 @@
 <style lang="less" scoped>
 	.el-menu {
 		height: 100%;
-		border: none;
+
 		h3 {
 			color: #fff;
 			text-align: center;
 			white-space: nowrap;
 			margin: 20px 0;
 		}
-		span {
-			color: #fff;
-		}
-	}
-	.el-menu-item:hover {
-		background-color: pink;
 	}
 	.el-menu-vertical-demo:not(.el-menu--collapse) {
 		width: 200px;
