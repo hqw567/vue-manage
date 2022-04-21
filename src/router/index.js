@@ -1,33 +1,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Main from '../views/Main'
+// import Main from '../views/Main'
 
-import Home from '../views/Home'
-import User from '../views/User'
-import Mall from '../views/Mall'
+// import Home from '../views/Home'
+// import User from '../views/User'
+// import Mall from '../views/Mall'
+// import Page1 from '../views/Other/PageOne'
+// import Page2 from '../views/Other/PageTwo'
 Vue.use(VueRouter)
 
 const routes = [
 	{
 		path: '/',
 		name: 'My-Main',
-		component: Main,
+		component: () => import('../views/Main'),
 		children: [
 			{
 				path: '/home',
 				name: 'home',
-				component: Home,
+				component: () => import('../views/Home'),
 			},
 			{
 				path: '/user',
 				name: 'user',
-				component: User,
+				component: () => import('../views/User'),
 			},
 			{
 				path: '/mall',
 				name: 'mall',
-				component: Mall,
+				component: () => import('../views/Mall'),
+			},
+			{
+				path: '/page1',
+				name: 'page1',
+				component: () => import('../views/Other/PageOne'),
+			},
+			{
+				path: '/page2',
+				name: 'page2',
+				component: () => import('../views/Other/PageTwo'),
 			},
 		],
 	},

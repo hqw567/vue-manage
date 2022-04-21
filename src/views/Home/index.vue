@@ -47,11 +47,22 @@
 				</el-card>
 			</div>
 			<el-card style="height: 280px">
-				<div ref="echarts" style="height: 280px"></div>
+				<!-- <div ref="echarts" style="height: 280px"></div> -->
+				<Echart :chartData="echartData.order" style="height: 280px" />
 			</el-card>
 			<div class="graph">
-				<el-card style="height: 260px"></el-card>
-				<el-card style="height: 260px"></el-card>
+				<el-card style="height: 260px">
+					<!-- <div ref="userEcharts" style="height: 240px"></div> -->
+					<Echart :chartData="echartData.user" style="height: 240px" />
+				</el-card>
+				<el-card style="height: 260px">
+					<!-- <div ref="videoEcharts" style="height: 240px"></div> -->
+					<Echart
+						:chartData="echartData.video"
+						:isAxisChart="false"
+						style="height: 240px"
+					/>
+				</el-card>
 			</div>
 		</el-col>
 	</el-row>
@@ -59,9 +70,13 @@
 
 <script>
 	import { getData } from '../../api/data'
-	import * as echarts from 'echarts'
+	// import * as echarts from 'echarts'
+	import Echart from '../../components/Echarts.vue'
 	export default {
 		name: 'My-Home',
+		components: {
+			Echart,
+		},
 		data() {
 			return {
 				userImg: require('../../assets/images/user.png'),
@@ -110,6 +125,19 @@
 						color: '#5ab1ef',
 					},
 				],
+				echartData: {
+					order: {
+						xData: [],
+						series: [],
+					},
+					user: {
+						xData: [],
+						series: [],
+					},
+					video: {
+						series: [],
+					},
+				},
 			}
 		},
 		mounted() {
@@ -129,22 +157,132 @@
 							type: 'line',
 						})
 					)
-					const option = {
-						xAxis: {
-							data: xData,
+					// const option = {
+					// 	xAxis: {
+					// 		data: xData,
+					// 	},
+					// 	yAxis: {},
+					// 	legend: {
+					// 		data: keyArray,
+					// 	},
+					// 	tooltip: {},
+					// 	series,
+					// 	title: {
+					// 		text: 'ECharts 入门示例',
+					// 	},
+					// }
+					this.echartData.order.xData = xData
+					this.echartData.order.series = series
+					// const E = echarts.init(this.$refs.echarts)
+					// E.setOption(option)
+
+					// const userOptions = {
+					// 	legend: {
+					// 		// 图例文字颜色
+					// 		textStyle: {
+					// 			color: '#333',
+					// 		},
+					// 	},
+					// 	grid: {
+					// 		left: '20%',
+					// 	},
+					// 	// 提示框
+					// 	tooltip: {
+					// 		trigger: 'axis',
+					// 	},
+					// 	xAxis: {
+					// 		type: 'category', // 类目轴
+					// 		data: data.userData.map((data) => {
+					// 			return data.date
+					// 		}),
+					// 		axisLine: {
+					// 			lineStyle: {
+					// 				color: '#17b3a3',
+					// 			},
+					// 		},
+					// 		axisLabel: {
+					// 			interval: 0,
+					// 			color: '#333',
+					// 		},
+					// 	},
+					// 	yAxis: [
+					// 		{
+					// 			type: 'value',
+					// 			axisLine: {
+					// 				lineStyle: {
+					// 					color: '#17b3a3',
+					// 				},
+					// 			},
+					// 		},
+					// 	],
+					// 	color: ['#2ec7c9', '#b6a2de'],
+					// 	series: [
+					// 		{
+					// 			name: '新增用户',
+					// 			data: data.userData.map((data) => {
+					// 				return data.new
+					// 			}),
+					// 			type: 'bar',
+					// 		},
+					// 		{
+					// 			name: '活跃用户',
+					// 			data: data.userData.map((data) => {
+					// 				return data.active
+					// 			}),
+					// 			type: 'bar',
+					// 		},
+					// 	],
+					// }
+					;(this.echartData.user.xData = data.userData.map((data) => {
+						return data.date
+					})),
+						(this.echartData.user.series = [
+							{
+								name: '新增用户',
+								data: data.userData.map((data) => {
+									return data.new
+								}),
+								type: 'bar',
+							},
+							{
+								name: '活跃用户',
+								data: data.userData.map((data) => {
+									return data.active
+								}),
+								type: 'bar',
+							},
+						])
+					// const U = echarts.init(this.$refs.userEcharts)
+					// U.setOption(userOptions)
+
+					// const videoOptions = {
+					// 	tooltip: {
+					// 		trigger: 'item',
+					// 	},
+					// 	color: [
+					// 		'#0f78f4',
+					// 		'#dd536b',
+					// 		'#9462e5',
+					// 		'#a6a6a6',
+					// 		'#e1bb22',
+					// 		'#39c362',
+					// 		'#3ed1cf',
+					// 	],
+					// 	series: [
+					// 		{
+					// 			data: data.videoData,
+					// 			type: 'pie',
+					// 		},
+					// 	],
+					// }
+					this.echartData.video.series = [
+						{
+							data: data.videoData,
+							type: 'pie',
 						},
-						yAxis: {},
-						legend: {
-							data: keyArray,
-						},
-						tooltip: {},
-						series,
-						title: {
-							text: 'ECharts 入门示例',
-						},
-					}
-					const E = echarts.init(this.$refs.echarts)
-					E.setOption(option)
+					]
+					// const V = echarts.init(this.$refs.videoEcharts)
+					// V.setOption(videoOptions)
 				}
 				console.log(res)
 			})

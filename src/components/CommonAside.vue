@@ -33,7 +33,10 @@
 				:key="itemChildren.path"
 				:index="itemChildren.path"
 			>
-				<el-menu-item :index="itemChildren.path">
+				<el-menu-item
+					@click="clickMenu(itemChildren)"
+					:index="itemChildren.path"
+				>
 					<i :class="'el-icon-' + itemChildren.icon"></i>
 					<span slot="title"> {{ itemChildren.label }}</span>
 				</el-menu-item>
@@ -120,7 +123,8 @@
 				console.log(key, keyPath)
 			},
 			clickMenu(item) {
-				this.$router.push(item.name)
+				this.$router.push({ name: item.name })
+				this.$store.commit('selectMenu', item)
 			},
 		},
 		computed: {
