@@ -15,6 +15,7 @@ const routes = [
 		path: '/',
 		name: 'My-Main',
 		component: () => import('../views/Main'),
+		redirect: 'home',
 		children: [
 			{
 				path: '/home',
@@ -42,6 +43,11 @@ const routes = [
 				component: () => import('../views/Other/PageTwo'),
 			},
 		],
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import('../views/Login/login.vue'),
 	},
 ]
 

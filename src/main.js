@@ -21,6 +21,17 @@ import {
 	Breadcrumb,
 	BreadcrumbItem,
 	Tag,
+	Form,
+	FormItem,
+	Input,
+	Select,
+	Option,
+	Switch,
+	DatePicker,
+	Dialog,
+	Pagination,
+	MessageBox,
+	Message,
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
@@ -48,7 +59,18 @@ Vue.use(TableColumn)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Tag)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Switch)
+Vue.use(DatePicker)
+Vue.use(Dialog)
+Vue.use(Pagination)
 
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$messageBox = Message
 Vue.prototype.$http = http
 Vue.config.productionTip = false
 
